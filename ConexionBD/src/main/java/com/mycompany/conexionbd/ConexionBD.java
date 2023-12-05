@@ -13,10 +13,12 @@ public class ConexionBD {
     static final String USER = "Radu";
     static final String PASS = "1234";
     static final String QUERY = "SELECT * FROM videojuegos";
-
+    /*En cada metodo tendremos que crear la conexion y cerrarla para que no de errores la base de datos.*/
     public static boolean buscaNombre(String nombre) {
         boolean salida = false;
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(QUERY);) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+             Statement stmt = conn.createStatement(); 
+             ResultSet rs = stmt.executeQuery(QUERY);) {
 
             while (rs.next()) {
                 String nombreTabla = rs.getString("Nombre");
@@ -32,10 +34,13 @@ public class ConexionBD {
             e.printStackTrace();
         }
         return salida;
+        /*Busca por nombre en la base de datos*/
     }
 
     public static void lanzaConsulta(String miQuery) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(QUERY);) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+             Statement stmt = conn.createStatement(); 
+             ResultSet rs = stmt.executeQuery(QUERY);) {
 
             while (rs.next()) {
                 System.out.print("ID: " + rs.getInt("Id") + " ");
@@ -49,6 +54,7 @@ public class ConexionBD {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        /*Me enseña los datos que tengo en la base de datos*/
     }
 
     public static void nuevoRegistro(String nombre, String genero, String compañia, String precio, String fecha) {
@@ -76,6 +82,7 @@ public class ConexionBD {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        /*Mete un nuevo juego a partir de los paramettros del metodo.*/
     }
 
     public static void nuevoRegistroPorTeclado(String nombre, String genero, String compañia, String precio, String fecha) {
@@ -103,6 +110,7 @@ public class ConexionBD {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        /*Mete un nuevo juego a partir de los paramettros que le pasa el usuario*/
     }
     
     public static boolean eliminarJuego(String nombreJuego) {
@@ -136,10 +144,13 @@ public class ConexionBD {
             e.printStackTrace();
         }
         return resultado;
+        /*Elimina el libro que tenga el nombre que le paso por el parametro del metodo.*/
     }
 
     public static void main(String[] args) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(QUERY);) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); 
+             Statement stmt = conn.createStatement(); 
+             ResultSet rs = stmt.executeQuery(QUERY);) {
             //METODO PARA BUSCAR NOMBRE DE JUEGO
             System.out.println("Dame un nombre que quieras buscar en la base de datos.");
             boolean respuesta = buscaNombre("Valorant");
